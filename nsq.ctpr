@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="nsq"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes>
+      <Item Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+    </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="pl_Indy"/>
+      </Item>
+    </RequiredPackages>
+    <Units>
+      <Unit>
+        <Filename Value="nsq.ppr"/>
+        <FRMtype Value="0"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="nsqfunctions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NSQFunctions"/>
+      </Unit>
+      <Unit>
+        <Filename Value="nsqreceiver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NSQReceiver"/>
+      </Unit>
+      <Unit>
+        <Filename Value="nsqlookup.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NSQLookup"/>
+      </Unit>
+      <Unit>
+        <Filename Value="nsqtypes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NSQTypes"/>
+      </Unit>
+      <Unit>
+        <Filename Value="testreceiver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TestReceiver"/>
+      </Unit>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="nsq"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions>
+      <Item>
+        <Name Value="EAbort"/>
+      </Item>
+      <Item>
+        <Name Value="ECodetoolError"/>
+      </Item>
+      <Item>
+        <Name Value="EFOpenError"/>
+      </Item>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

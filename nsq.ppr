@@ -1,0 +1,23 @@
+program nsq;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  Classes,
+  SysUtils,
+  Crt,
+  pl_indy,
+  IdTCPClient,
+  NSQFunctions, NSQReceiver, NSQLookup, NSQTypes, TestReceiver
+  { you can add units after this };
+
+
+begin
+  // TestNSQTopic;
+  // TestNSQReceiver;
+  TestNSQLookup;
+end.
+
