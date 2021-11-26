@@ -70,6 +70,17 @@
         <Loaded Value="True"/>
       </Unit>
       <Unit>
+        <Filename Value="nsqversion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NSQVersion"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <CursorPos X="24" Y="16"/>
+        <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
         <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/inc/systemh.inc"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
@@ -193,17 +204,6 @@
         <TopLine Value="1247"/>
         <CursorPos X="10" Y="1142"/>
         <UsageCount Value="9"/>
-      </Unit>
-      <Unit>
-        <Filename Value="nsqversion.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="NSQVersion"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <CursorPos X="60" Y="10"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">

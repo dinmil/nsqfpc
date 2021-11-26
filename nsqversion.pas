@@ -13,6 +13,7 @@ var
 
 
 // TODO
+// - Update readme file
 // - Install proper signal handling and avoid crt unit
 // - Try on windows - is was intially written by CodeTyphoon 7.50 for MAC
 // - Test reconnect without NSQLookup and with NSQLookup
