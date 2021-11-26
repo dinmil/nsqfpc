@@ -11,7 +11,7 @@ uses
   Crt,
   pl_indy,
   IdTCPClient,
-  NSQFunctions, NSQReceiver, NSQLookup, NSQTypes, TestReceiver
+  NSQFunctions, NSQReceiver, NSQLookup, NSQTypes, TestReceiver, NSQVersion
   { you can add units after this };
 
 

@@ -66,15 +66,17 @@ begin
       MyKey := ReadKey;
       if (MyKey = ^c) then begin
         if InObject is TNSQReceiverThread then begin
+          Writeln('Received ^c for TNSQReceiverThread');
           (InObject as TNSQReceiverThread).Terminate;
         end
         else if InObject is TNSQLookupThread then begin
+        Writeln('Received ^c for TNSQLookupThread');
           (InObject as TNSQLookupThread).TerminateThread;
         end;
         break;
       end;
       Writeln('****************');
-      Writeln(Now);
+      Writeln(FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', Now));
       if (InTCPClient = nil) OR ((InTCPClient <> nil) and (InTCPClient.Connected = false)) then begin
         // lookup takes some time to connect and find producers
         if InObject is TNSQReceiverThread then begin
@@ -141,7 +143,7 @@ begin
   // Create reader
   NSQ_DEBUG := true;
 
-  Lookup := TNSQLookupThread.Create('http://localhost:4161', NSQ_TEST_TOPIC, NSQ_TEST_CHANNEL, 2);
+  Lookup := TNSQLookupThread.Create('http://localhost:4161', NSQ_TEST_TOPIC, NSQ_TEST_CHANNEL, 10);
   Lookup.InstallDataCallback(@MyNSQCallback);
   Lookup.Start;
 

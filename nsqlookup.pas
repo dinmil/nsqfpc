@@ -47,7 +47,7 @@ type
     destructor Destroy; override;
     procedure Assign(InCls: TClsNSQProducer);
     function Compare(InCls: TClsNSQProducer): boolean;
-    function CreateReceivers(InTopicName, InChannel: string): TNSQReceiverThread;
+    function CreateReceiver(InTopicName, InChannel: string): TNSQReceiverThread;
   end;
 
   { TClsNSQProducers }
@@ -94,6 +94,7 @@ type
     procedure Execute; override;
   public
     _isTerminated: boolean;
+    _Terminate: boolean;
     _nsqLookupUrl: string;
     _nsqTopicName: string;
     _nsqChannelName: string;
@@ -124,9 +125,9 @@ var MyCount: Integer;
 begin
   MyCount := 0;
   _isTerminated := False;
-  while not Terminated do begin
+  while _Terminate = false do begin
     Inc(MyCount);
-    if ((MyCount mod _nsqPoolInterval) = 0) then begin
+    if ((MyCount mod _nsqPoolInterval) = 0) or (MyCount = 1) then begin
       MyCheckTopicData := CheckTopicData;
       if MyCheckTopicData = false then begin
         // something went wrong
@@ -135,6 +136,9 @@ begin
     Sleep(1000);
   end;
   _isTerminated := True;
+  if NSQ_DEBUG then begin
+    NSQWrite('TNSQLookupThread.ThreadTerminated', []);
+  end;
 end;
 
 constructor TNSQLookupThread.Create(InNSQLookupUrl: string;
@@ -194,11 +198,18 @@ end;
 
 procedure TNSQLookupThread.TerminateThread;
 begin
-  _nsqTopic.TerminateThreads;
+  NSQWrite('TNSQLookupThread.TerminateThread', []);
+
+  _Terminate := true;
   while (_isTerminated = false) do begin
-    Terminate;
+    _Terminate := true;
     Sleep(100);
   end;
+
+  NSQWrite('TNSQLookupThread.TerminateThread calls _nsqTopic.TerminateThreads', []);
+  _nsqTopic.TerminateThreads;
+  NSQWrite('TNSQLookupThread.TerminateThread finish with _nsqTopic.TerminateThreads', []);
+  _isTerminated := true;
 end;
 
 procedure TNSQLookupThread.InstallProcedureChangedCallback(
@@ -242,7 +253,7 @@ procedure TClsNSQTopic.GetTopicData(InNSQLookupUrl: string;
 var MyResponse: string;
 begin
   if NSQ_DEBUG then begin
-    Writeln('GetTopicData: ', InNSQLookupUrl, ': ', InTopicName, NSQ_CR)
+    NSQWrite('GetTopicData: %s: %s', [InNSQLookupUrl, InTopicName])
   end;
   MyResponse := NSQGetTopicData(InNSQLookupUrl, InTopicName);
   if NSQ_DEBUG then begin
@@ -323,7 +334,7 @@ end;
 
 procedure TClsNSQTopic.FindProducerDifferences(InNSQTopic: TClsNSQTopic);
 var F, G: Integer;
-    MyProducer1, MyProducer2: TClsNSQProducer;
+    MyProducer1, MyProducer2, MyProducer3: TClsNSQProducer;
     MyFound: Boolean;
 begin
   // this part loops through current producers and mark every producer that do not exists
@@ -341,8 +352,14 @@ begin
       end;
       if MyFound then Break;
     end;
-    if MyFound then MyProducer1._action := ''
-    else MyProducer1._action := 'remove';
+    if MyFound then begin
+      MyProducer1._action := '';
+      MyProducer1._receiver._nsqdExist := true;
+    end
+    else begin
+      MyProducer1._action := 'remove';
+      MyProducer1._receiver._nsqdExist := false;
+    end
   end;
 
   // this part loops through current producers and add new producer if
@@ -361,7 +378,8 @@ begin
       if MyFound then Break;
     end;
     if MyFound = false then begin
-      _producers.AddItem(MyProducer1._data)._action := 'add';
+      MyProducer3 := _producers.AddItem(MyProducer1._data);
+      MyProducer3._action := 'add';
     end;
   end;
 
@@ -383,7 +401,9 @@ begin
       // start new thread to fetch data
       F := F + 1;
       MyProducer1._action := '';
-      MyProducer1.CreateReceivers(_nsqTopicName, _nsqChannelName);
+      MyProducer1.CreateReceiver(_nsqTopicName, _nsqChannelName);
+      MyProducer1._receiver._nsqdExist := true;
+      MyProducer1._receiver._pnsqLookup := Self;
       MyProducer1._receiver.InstallCallback(_CallbackData);
       MyProducer1._receiver.Start;
     end
@@ -429,10 +449,16 @@ end;
 procedure TClsNSQTopic.TerminateThreads;
 var F: Integer;
 begin
+  if NSQ_DEBUG then begin
+    NSQWrite('TClsNSQTopic.TerminateThreads', []);
+  end;
   for F := 0 to _producers.GetCount-1 do begin
     if _producers.GetItem(F)._receiver <> nil then begin
       _producers.GetItem(F)._receiver.TerminateTread;
     end;
+  end;
+  if NSQ_DEBUG then begin
+    NSQWrite('TClsNSQTopic.ThreadsTerminated', []);
   end;
 end;
 
@@ -602,7 +628,7 @@ begin
   Result := _lastCompareResult;
 end;
 
-function TClsNSQProducer.CreateReceivers(InTopicName, InChannel: string
+function TClsNSQProducer.CreateReceiver(InTopicName, InChannel: string
   ): TNSQReceiverThread;
 begin
   if _receiver = nil then begin

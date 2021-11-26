@@ -233,11 +233,13 @@ begin
         sleep(100);
       end;
       if InClient.Connected then begin;
-        if NSQ_DEBUG then Writeln('Port: ', InClient.BoundPort.ToString, NSQ_CR);
+        if NSQ_DEBUG then begin
+          NSQWrite('Port: %s', [InClient.BoundPort.ToString]);
+        end;
       end;
     except
       on E: Exception do begin
-        Writeln(E.Message, NSQ_CR);
+        NSQWrite('%s', [E.Message]);
         raise E;
       end;
     end;
@@ -264,6 +266,7 @@ begin
     0: result := TNSQFrameType.NSQ_FRAMETYPERESPONSE;
     1: result := TNSQFrameType.NSQ_FRAMETYPEERROR;
     2: result := TNSQFrameType.NSQ_FRAMETYPEMESSAGE;
+    else result := TNSQFrameType.NSQ_FRAMETYPEUNKNOWN;
   end;
 end;
 
@@ -333,7 +336,9 @@ begin
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -352,7 +357,9 @@ begin
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -370,11 +377,15 @@ begin
     MyString := Format('SUB %s %s%s', [InTopic, InChannel, #10]);
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
-    if NSQ_DEBUG then Writeln('SUB: ', MyString, NSQ_CR)
+    if NSQ_DEBUG then begin
+      NSQWrite('SUB: "%s"', [MyString])
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -389,11 +400,15 @@ begin
   // for consuming (and request/response for publishing)
   try
     InTCPClient.IOHandler.Write(NSQ_MAGIC_V2);
-    if NSQ_DEBUG then Writeln('MAGIC: ', NSQ_MAGIC_V2, NSQ_CR)
+    if NSQ_DEBUG then begin
+      NSQWrite('MAGIC: %s', [NSQ_MAGIC_V2])
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise;
     end;
   end;
@@ -415,16 +430,22 @@ begin
     InTCPClient.IOHandler.Write(NSQ_NL);
 
     MySize := Length(MyString);
-    if NSQ_DEBUG then Writeln('IDENTIFY My Size: ', MySize, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('IDENTIFY My Size: %d', [MySize]);
+    end;
 
     InTCPClient.IOHandler.Write(MySize);  // Indy automatically swap bytes to newtwork bigendian format
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
-    if NSQ_DEBUG then Writeln('IDENTIFY: ', MyString, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('IDENTIFY: %s', [MyString]);
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise;
     end;
   end;
@@ -443,11 +464,15 @@ begin
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
     InTCPClient.IOHandler.Write(NSQ_NL);
 
-    if NSQ_DEBUG then Writeln('NOP: ', MyString, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('NOP: %s', [MyString]);
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -464,20 +489,28 @@ begin
   // PUB <topic_name>\n
   try
     MyString := Format('PUB %s%s', [InTopicName, string(#10)]);
-    if NSQ_DEBUG then Writeln('PUB: ', MyString, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('PUB: %s', [MyString]);
+    end;
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
     MySize := Length(InMessage);
-    if NSQ_DEBUG then Writeln('PUB: MySize: ', MySize, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('PUB: MySize: %d', [MySize]);
+    end;
 
     InTCPClient.IOHandler.Write(MySize);
     InTCPClient.IOHandler.Write(@InMessage[1], Length(InMessage));
 
-    if NSQ_DEBUG then Writeln('PUB: ', InTopicName, '; ', InMessage, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('PUB: %s; "%s"', [InTopicName, InMessage]);
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -509,13 +542,19 @@ begin
     end;
 
     MyString := Format('MPUB %s%s', [InTopicName, string(#10)]);
-    if NSQ_DEBUG then Writeln('MPUB: ', MyString, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('MPUB: %s', [MyString]);
+    end;
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
-    if NSQ_DEBUG then Writeln('MPUB: MyBodySize: ', MyBodySize, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('MPUB: MyBodySize: %d', [MyBodySize]);
+    end;
     InTCPClient.IOHandler.Write(MyBodySize);
 
-    if NSQ_DEBUG then Writeln('MPUB: MyMessageCount: ', MyMessageCount, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('MPUB: MyMessageCount: %d', [MyMessageCount]);
+    end;
     InTCPClient.IOHandler.Write(MyMessageCount);
 
 
@@ -528,7 +567,9 @@ begin
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -549,20 +590,28 @@ begin
   MyResult := 0;
   try
     MyString := Format('DPUB %s %d%s', [InTopicName, InDeferTime, string(#10)]);
-    if NSQ_DEBUG then Write('DPUB: ', MyString);
+    if NSQ_DEBUG then begin
+      NSQWrite('DPUB: %s', [MyString]);
+    end;
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
     MySize := Length(InMessage);
-    if NSQ_DEBUG then Writeln('DPUB: MySize: ', MySize, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('DPUB: MySize: %d', [MySize]);
+    end;
 
     InTCPClient.IOHandler.Write(MySize);
     InTCPClient.IOHandler.Write(@InMessage[1], Length(InMessage));
 
-    if NSQ_DEBUG then Writeln('DPUB: ', InTopicName, '; ', InMessage, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('DPUB: %s; %s', [InTopicName, InMessage]);
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -582,11 +631,15 @@ begin
     MyString := Format('RDY %d%s', [InCount, string(#10)]);
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
-    if NSQ_DEBUG then Writeln('RDY: ', MyString, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('RDY: %s', [MyString]);
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -606,11 +659,15 @@ begin
     MyString := Format('FIN %s%s', [InMessageID, string(#10)]);
     InTCPClient.IOHandler.Write(@MyString[1], Length(MyString));
 
-    if NSQ_DEBUG then Write('FIN: ', MyString, NSQ_CR)
+    if NSQ_DEBUG then begin
+      NSQWrite('FIN: %s', [MyString])
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
@@ -631,11 +688,15 @@ begin
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
-  if NSQ_DEBUG then Writeln('REQ: ', MyString, NSQ_CR);
+  if NSQ_DEBUG then begin
+    NSQWrite('REQ: %s', [MyString]);
+  end;
   Result := MyResult;
 end;
 
@@ -653,11 +714,15 @@ begin
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
-  if NSQ_DEBUG then Writeln('TOUCH: ', MyString, NSQ_CR);
+  if NSQ_DEBUG then begin
+    NSQWrite('TOUCH: %s', [MyString]);
+  end;
   Result := MyResult;
 end;
 
@@ -674,11 +739,15 @@ begin
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;
-  if NSQ_DEBUG then Writeln('CLS: ', MyString, NSQ_CR);
+  if NSQ_DEBUG then begin
+    NSQWrite('CLS: %s', [MyString]);
+  end;
   Result := MyResult;
 end;
 
@@ -715,23 +784,31 @@ begin
   try
     //OutNanoSecondTimestamp 8byte
     MyInStream.Position := 0;
-    if NSQ_DEBUG then Writeln('READ: SizeOfMessage: ', MyInStream.Size, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('READ: SizeOfMessage: %d', [MyInStream.Size]);
+    end;
 
     MyInStream.ReadBuffer(MyFrameType, 4);
     MyFrameType := BEtoN(MyFrameType);
-    if NSQ_DEBUG then Writeln('READ: MyFrameType: ', MyFrameType, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('READ: MyFrameType: %d', [MyFrameType]);
+    end;
     MyFrameType := BEtoN(MyFrameType);
 
     MyInStream.ReadBuffer(MyTimestamp, 8);
     MyTimeStamp := BEtoN(MyTimestamp);
-    if NSQ_DEBUG then Writeln('READ: MyTimeStamp: ', MyTimestamp, NSQ_CR);
-    if NSQ_DEBUG then Writeln('READ: MyTimeStamp: ', FormatDateTime('yyyy-mm-dd nn:hh:ss.zzz', FavEpochToDateTime(MyTimestamp div 1000000)), NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('READ: MyTimeStamp: %d', [MyTimestamp]);
+      NSQWrite('READ: MyTimeStamp: %s', [FormatDateTime('yyyy-mm-dd nn:hh:ss.zzz', FavEpochToDateTime(MyTimestamp div 1000000))]);
+    end;
     OutNanoSecondTimestamp := MyTimestamp;
 
     //OutAttempts 2byte
     MyInStream.ReadBuffer(MyAttempts, 2);
     MyAttempts := BEtoN(MyAttempts);
-    if NSQ_DEBUG then Writeln('READ: Attempts: ', MyAttempts, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('READ: Attempts: %d', [MyAttempts]);
+    end;
     OutAttempts := MyAttempts;
 
 
@@ -744,15 +821,21 @@ begin
     begin
       OutMessageID := OutMessageID + MyMessageID[F];
     end;
-    if NSQ_DEBUG then Writeln('READ: MessageID: ', MyMessageID, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('READ: MessageID: %s', [string(MyMessageID)]);
+    end;
 
     SetLength(OutBody,MyInStream.Size - 8 - 2 - 16);
     MyInStream.Read(OutBody[1], MyInStream.Size - 8 - 2 - 16);
-    if NSQ_DEBUG then Writeln('READ: MsgBody: ', OutBody, NSQ_CR);
+    if NSQ_DEBUG then begin
+      NSQWrite('READ: MsgBody: %s', [OutBody]);
+    end;
   except
     on E: Exception do begin
       MyResult := -1;
-      if NSQ_DEBUG then Writeln(E.Message, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('%s', [E.Message]);
+      end;
       raise
     end;
   end;

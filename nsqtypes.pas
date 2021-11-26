@@ -8,9 +8,6 @@ uses
   Classes, SysUtils;
 
 var
-  NSQ_CLIENT_VERSION: string = '0.0.0.1';
-  NSQ_CLIENT_TIMESTAMP: string = '2021-11-24 00:00:00';
-
   NSQ_DEBUG: Boolean = true;
 
   NSQ_CR: char = #13;
@@ -35,7 +32,7 @@ type
                            var OutParam: Int32
                            );
 
-  TNSQFrameType = (NSQ_FRAMETYPERESPONSE, NSQ_FRAMETYPEERROR, NSQ_FRAMETYPEMESSAGE);
+  TNSQFrameType = (NSQ_FRAMETYPERESPONSE, NSQ_FRAMETYPEERROR, NSQ_FRAMETYPEMESSAGE, NSQ_FRAMETYPEUNKNOWN);
   TByteArray = array of byte;
 
   TNSQChannel = record
@@ -88,6 +85,8 @@ type
     procedure MovePointers(InClss: TNSQClss);
   end;
 
+  procedure NSQWrite(const InFormatStr: string; const InArgs: array of Const);
+
 
 const InitTNSQChannel: TNSQChannel = ({%H-});
 const InitTNSQProducer: TNSQProducer = ({%H-});
@@ -95,6 +94,25 @@ const InitTNSQIdentify: TNSQIdentify = ({%H-});
 
 
 implementation
+
+procedure NSQWrite(const InFormatStr: string; const InArgs: array of Const);
+var MyString: String;
+    MyLen: Integer;
+begin
+  MyString := Format(InFormatStr, InArgs);
+  MyLen := Length(MyString);
+  if MyLen > 0 then begin
+    if MyString[MyLen] = char(NSQ_NL) then begin
+      Write(FormatDateTime('dd HH:nn:ss.zzz', Now), ': ', MyString, NSQ_CR);
+    end
+    else begin
+      Writeln(FormatDateTime('dd HH:nn:ss.zzz', Now), ': ', MyString, NSQ_CR);
+    end;
+  end
+  else begin
+    Writeln(FormatDateTime('dd HH:nn:ss.zzz', Now), ': ', NSQ_CR);
+  end;
+end;
 
 { TNSQClss }
 

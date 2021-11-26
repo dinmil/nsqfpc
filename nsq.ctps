@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <Version Value="12"/>
-    <BuildModes Active="Default"/>
+    <BuildModes Active="Release"/>
     <Units>
       <Unit>
         <Filename Value="nsq.ppr"/>
@@ -10,8 +10,8 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <CursorPos X="88" Y="15"/>
-        <UsageCount Value="86"/>
+        <CursorPos X="32" Y="9"/>
+        <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -20,9 +20,9 @@
         <UnitName Value="NSQFunctions"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="69"/>
-        <CursorPos X="12" Y="35"/>
-        <UsageCount Value="86"/>
+        <TopLine Value="640"/>
+        <CursorPos X="21" Y="663"/>
+        <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -31,9 +31,9 @@
         <UnitName Value="NSQReceiver"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="53"/>
-        <CursorPos Y="61"/>
-        <UsageCount Value="86"/>
+        <TopLine Value="270"/>
+        <CursorPos Y="295"/>
+        <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -42,9 +42,9 @@
         <UnitName Value="NSQLookup"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="405"/>
-        <CursorPos X="80" Y="421"/>
-        <UsageCount Value="48"/>
+        <TopLine Value="122"/>
+        <CursorPos X="60" Y="130"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -53,9 +53,20 @@
         <UnitName Value="NSQTypes"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2"/>
-        <CursorPos X="3" Y="16"/>
-        <UsageCount Value="47"/>
+        <TopLine Value="91"/>
+        <CursorPos X="21" Y="108"/>
+        <UsageCount Value="62"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="testreceiver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TestReceiver"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="129"/>
+        <CursorPos X="56" Y="140"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -65,7 +76,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="949"/>
         <CursorPos X="10" Y="997"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/inc/generic.inc"/>
@@ -74,16 +85,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2698"/>
         <CursorPos X="5" Y="2730"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/typhon/components/pl_Indy/source/IdIOHandler.pas"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1069"/>
-        <CursorPos X="3" Y="1073"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="1951"/>
+        <CursorPos X="3" Y="1968"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/typhon/components/pl_Indy/source/IdGlobal.pas"/>
@@ -92,7 +103,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="7764"/>
         <CursorPos X="3" Y="7767"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="2"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/fpcsrc/packages/fcl-json/src/fpjson.pp"/>
@@ -101,7 +112,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1500"/>
         <CursorPos X="3" Y="1503"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/typhon/components/pl_Indy/source/IdStack.pas"/>
@@ -110,7 +121,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="962"/>
         <CursorPos X="48" Y="977"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/fpcsrc/packages/rtl-objpas/src/inc/dateutil.inc"/>
@@ -119,7 +130,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="365"/>
         <CursorPos X="28" Y="377"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/objpas/classes/classesh.inc"/>
@@ -137,19 +148,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="283"/>
         <CursorPos X="3" Y="286"/>
-        <UsageCount Value="9"/>
-      </Unit>
-      <Unit>
-        <Filename Value="testreceiver.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="TestReceiver"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="70"/>
-        <CursorPos X="14" Y="70"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/local/codetyphon/typhon/components/pl_Indy/source/IdStackUnix.pas"/>
@@ -158,129 +157,174 @@
         <WindowIndex Value="0"/>
         <TopLine Value="419"/>
         <CursorPos X="81" Y="430"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/unix/sysutils.pp"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="0"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/bsd/system.pp"/>
+        <FRMtype Value="0"/>
+        <UnitName Value="System"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="211"/>
+        <CursorPos Y="23"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/objpas/sysutils/sysstrh.inc"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="137"/>
+        <CursorPos X="10" Y="151"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="/usr/local/codetyphon/fpcsrc/rtl/objpas/sysutils/sysstr.inc"/>
+        <FRMtype Value="0"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1247"/>
+        <CursorPos X="10" Y="1142"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="nsqversion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NSQVersion"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <CursorPos X="60" Y="10"/>
+        <UsageCount Value="26"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="151" Column="18" TopLine="140"/>
+        <Caret Line="249" Column="31" TopLine="233"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="70" Column="18" TopLine="56"/>
+        <Caret Line="94" Column="15" TopLine="85"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="152" Column="22" TopLine="140"/>
+        <Caret Line="140" Column="31" TopLine="122"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="71" Column="20" TopLine="57"/>
+        <Caret Line="87" Column="15" TopLine="61"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="455" Column="45" TopLine="443"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="15" Column="19" TopLine="3"/>
+        <Caret Line="15" Column="21" TopLine="8"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="65" Column="35" TopLine="48"/>
+        <Caret Line="237" Column="27" TopLine="214"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="61" TopLine="48"/>
+        <Caret Line="37" Column="15" TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="442" Column="47" TopLine="431"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="79" Column="20" TopLine="71"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="249" Column="3" TopLine="244"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="94" Column="19" TopLine="80"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="135" Column="43" TopLine="122"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqlookup.pas"/>
+        <Caret Line="112" Column="15" TopLine="99"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="63" TopLine="48"/>
+        <Caret Line="256" Column="41" TopLine="240"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="64" TopLine="48"/>
+        <Caret Line="15" Column="16" TopLine="3"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="67" TopLine="48"/>
+        <Caret Line="109" Column="18" TopLine="93"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="68" TopLine="48"/>
+        <Caret Line="109" TopLine="93"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="72" TopLine="50"/>
+        <Caret Line="37" Column="15" TopLine="25"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqfunctions.pas"/>
+        <Caret Line="44" Column="65" TopLine="38"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqtypes.pas"/>
+        <Caret Line="109" Column="77" TopLine="90"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="73" TopLine="51"/>
+        <Caret Line="262" Column="48" TopLine="255"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqreceiver.pas"/>
+        <Caret Line="15" Column="15" TopLine="7"/>
       </Position>
       <Position>
         <Filename Value="testreceiver.pas"/>
-        <Caret Line="139" Column="41" TopLine="118"/>
+        <Caret Line="140" Column="56" TopLine="129"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="86" Column="14" TopLine="73"/>
-      </Position>
-      <Position>
-        <Filename Value="testreceiver.pas"/>
-        <Caret Line="129" Column="30" TopLine="119"/>
+        <Caret Line="211" Column="39" TopLine="197"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="86" Column="14" TopLine="73"/>
+        <Caret Line="112" Column="15" TopLine="100"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="414" Column="3" TopLine="408"/>
+        <Caret Line="203" Column="3" TopLine="197"/>
       </Position>
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="415" TopLine="408"/>
-      </Position>
-      <Position>
-        <Filename Value="testreceiver.pas"/>
-        <Caret Line="138" Column="10" TopLine="119"/>
+        <Caret Line="94" Column="15" TopLine="89"/>
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
-        <Caret Line="61" TopLine="53"/>
+        <Caret Line="229" Column="52" TopLine="222"/>
       </Position>
       <Position>
-        <Filename Value="nsqlookup.pas"/>
-        <Caret Line="415" TopLine="408"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
-        <Caret Line="416" TopLine="408"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
-        <Caret Line="417" TopLine="408"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
-        <Caret Line="418" TopLine="408"/>
-      </Position>
-      <Position>
-        <Filename Value="testreceiver.pas"/>
-        <Caret Line="138" TopLine="117"/>
-      </Position>
-      <Position>
-        <Filename Value="testreceiver.pas"/>
-        <Caret Line="78" Column="72" TopLine="68"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
-        <Caret Line="86" Column="14" TopLine="74"/>
-      </Position>
-      <Position>
-        <Filename Value="testreceiver.pas"/>
-        <Caret Line="78" Column="91" TopLine="68"/>
-      </Position>
-      <Position>
-        <Filename Value="testreceiver.pas"/>
-        <Caret Line="101" Column="30" TopLine="77"/>
+        <Filename Value="nsqreceiver.pas"/>
       </Position>
     </JumpHistory>
     <RunParams>
