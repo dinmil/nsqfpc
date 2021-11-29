@@ -17,6 +17,10 @@ Client library try to follow dirrections from https://nsq.io/clients/building_cl
 About NSQ. 
 It is simple, it is fast, it is written in GO language, it is easy for setup (no need to setup at all), it suppport all OS-es.
 
+NSQ Installation
+Follow directions from https://nsq.io/deployment/installing.html
+
+
 Motivation.
 To move fpc closer to new message techologies.
 

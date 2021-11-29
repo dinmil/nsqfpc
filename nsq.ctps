@@ -8,9 +8,11 @@
         <Filename Value="nsq.ppr"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <CursorPos X="32" Y="9"/>
+        <TopLine Value="3"/>
+        <CursorPos Y="22"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit>
@@ -73,10 +75,9 @@
         <Filename Value="nsqversion.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NSQVersion"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <CursorPos X="24" Y="16"/>
+        <CursorPos X="44" Y="14"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit>
@@ -209,10 +210,6 @@
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="249" Column="31" TopLine="233"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
         <Caret Line="94" Column="15" TopLine="85"/>
       </Position>
       <Position>
@@ -325,6 +322,10 @@
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="nsq.ppr"/>
+        <Caret Line="21" Column="6" TopLine="3"/>
       </Position>
     </JumpHistory>
     <RunParams>
