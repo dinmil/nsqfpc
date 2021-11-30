@@ -1,0 +1,37 @@
+program nsqfpc;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  // heaptrc,
+  // lineinfo,
+  Classes,
+  SysUtils,
+  Crt,
+  pl_indy,
+  IdTCPClient,
+  NSQFunctions, NSQReceiver, NSQLookup, NSQTypes, TestReceiver, NSQVersion
+  { you can add units after this };
+
+
+begin
+  if FileExists('.\heaptrc.trc') then begin
+    DeleteFile('.\heaptrc.trc');
+  end;
+
+  (*
+  heaptrc.printfaultyblock := True;
+  heaptrc.printleakedblock := True;
+  heaptrc.quicktrace := True;
+  heaptrc.HaltOnNotReleased := True;
+  heaptrc.SetHeapTraceOutput('.\heaptrc.trc');
+  *)
+
+  // TestNSQTopic;
+  // TestNSQReceiver;
+  TestNSQLookup;
+end.
+

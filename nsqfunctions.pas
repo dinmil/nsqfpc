@@ -73,11 +73,17 @@ begin
     MyHttp.Request.Accept := 'text/json';
     // MyHttp.Request.AcceptEncoding := 'utf-8, gzip';
 
+    if NSQ_DEBUG then begin
+      NSQWrite(InNSQLookupUrl + '/lookup?topic=%s', [InTopicName]);
+    end;
     MyResponse := MyHttp.Get(Format(InNSQLookupUrl + '/lookup?topic=%s', [InTopicName]));
 
     if MyHttp <> nil then FreeAndNil(MyHttp);
   except
     on E: Exception do begin
+      if NSQ_DEBUG then begin
+        NSQWrite('NSQGetTopicData: %s', [E.Message]);
+      end;
       if MyHttp <> nil then FreeAndNil(MyHttp);
       raise
     end;
@@ -142,7 +148,7 @@ begin
     Write(Format('%2.2X', [MyByte]));
   end;
   InStream.Position := 0;
-  Writeln;
+  NSQWrite('', []);
 
   InStream.Position := 0;
   for F := 0 to InStream.Size-1 do begin
@@ -151,7 +157,7 @@ begin
       Write(Format('%s', [Char(MyByte)]));
     end;
   end;
-  Writeln;
+  NSQWrite('', []);
   InStream.Position := 0;
 end;
 
@@ -525,6 +531,7 @@ var MyString: string;
     MyBodySize: Int32;
     MyMessageCount: Int32;
     MyResult: Integer;
+    MyMessage: string;
 begin
   // MPUB <topic_name>\n
   // [ 4-byte body size ]
@@ -559,10 +566,14 @@ begin
 
 
     for F := 0 to Length(InMessages)-1 do begin
+      MyMessage := '';
+      MyMessage := InMessages[F];
       MySize := Length(InMessages[F]);
-      if NSQ_DEBUG then Writeln('MPUB: MySize: ', MySize, NSQ_CR);
+      if NSQ_DEBUG then begin
+        NSQWrite('MPUB: MySize: %d, %s', [MySize, MyMessage]);
+      end;
       InTCPClient.IOHandler.Write(MySize);
-      InTCPClient.IOHandler.Write(@InMessages[F][1], Length(InMessages[F]));
+      InTCPClient.IOHandler.Write(@MyMessage[1], MySize);
     end;
   except
     on E: Exception do begin
@@ -825,8 +836,11 @@ begin
       NSQWrite('READ: MessageID: %s', [string(MyMessageID)]);
     end;
 
-    SetLength(OutBody,MyInStream.Size - 8 - 2 - 16);
-    MyInStream.Read(OutBody[1], MyInStream.Size - 8 - 2 - 16);
+    SetLength(OutBody,MyInStream.Size - 8 - 2 - 16 - 4);
+    for F := 1 to Length(OutBody) do begin
+      OutBody[F] := ' ';
+    end;
+    MyInStream.Read(OutBody[1], MyInStream.Size - 8 - 2 - 16 - 4);
     if NSQ_DEBUG then begin
       NSQWrite('READ: MsgBody: %s', [OutBody]);
     end;
