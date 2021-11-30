@@ -8,8 +8,8 @@ uses
   Classes, SysUtils;
 
 var
-  NSQ_CLIENT_VERSION: string = '0.0.0.2';
-  NSQ_CLIENT_TIMESTAMP: string = '2021-11-26 00:00:00';
+  NSQ_CLIENT_VERSION: string = '0.0.0.3';
+  NSQ_CLIENT_TIMESTAMP: string = '2021-11-30 00:00:00';
 
 
 // TODO
@@ -22,6 +22,7 @@ var
 
 
 // VERSION INFO
+// 0.0.0.3 - 2021-11-30 00:00:00 - Add support for windows
 // 0.0.0.1 - 2021-11-24 00:00:00 - Initial version
 
 implementation

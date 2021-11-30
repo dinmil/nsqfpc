@@ -266,7 +266,6 @@ implementation
 
 procedure NSQWrite(const InFormatStr: string; const InArgs: array of Const);
 var MyString: String;
-    MyLen: Integer;
 begin
   {$IFDEF UNIX}
   MyString := Format(InFormatStr, InArgs);

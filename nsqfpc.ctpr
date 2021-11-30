@@ -19,7 +19,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="nsqfpc"/>
+            <Filename Value="bin/debug/nsqfpc"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -53,7 +53,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="nsqfpc"/>
+            <Filename Value="bin/nsqfpc"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -127,7 +127,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="nsqfpc"/>
+      <Filename Value="bin/debug/nsqfpc"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

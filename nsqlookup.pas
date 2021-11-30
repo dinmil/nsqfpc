@@ -499,7 +499,6 @@ procedure TClsNSQProducers.ParseJSONResponse(InJSON: TJSONData);
 var MyJSONArray: TJSONArray;
 
     MyItem, MyItem1: TJSONData;
-    MyJSONObject: TJSONObject;
     MyObjectName: string;
 
     MyData: TNSQProducer;
