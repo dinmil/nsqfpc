@@ -1,4 +1,4 @@
-program nsq;
+program nsqfpc;
 
 {$mode objfpc}{$H+}
 
