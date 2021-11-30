@@ -266,6 +266,9 @@ implementation
 
 procedure NSQWrite(const InFormatStr: string; const InArgs: array of Const);
 var MyString: String;
+{$IFDEF UNIX}
+    MyLen: Integer;
+{$ENDIF}
 begin
   {$IFDEF UNIX}
   MyString := Format(InFormatStr, InArgs);
@@ -633,10 +636,14 @@ begin
 end;
 
 initialization
+  {$IFDEF WINDOWS}
   LogMutex := TFavMutex.Create('LogMutex');
+  {$ENDIF}
 
 finalization
+  {$IFDEF WINDOWS}
   if LogMutex <> nil then FreeAndNil(LogMutex);
+  {$ENDIF}
 
 
 
