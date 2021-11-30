@@ -1,10 +1,10 @@
 # nsqfpc
 
 This is sample which shows how to use nsq golang message queue with fpc.
-Project support sending and receiving messages with plain receiver TClsNSQReceiver.
+Project supports sending and receiving messages with plain receiver TClsNSQReceiver.
 It also support NSQ Lookup system to locate NSQ deamons.
 Initial version was written with CodeTyphoon 7.50 for MAC.
-It was not yet tested for Windows and Linux but it should work.
+It is adjusted for Windows also.
 
 Test program is written to receive messages, 
 1. send one message

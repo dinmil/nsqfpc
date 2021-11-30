@@ -7,9 +7,10 @@ interface
 uses
   Classes, SysUtils,
   {$ifdef Windows} Windows {$endif}
-  {$ifdef Linux}   Unix, unixtype, pthreads, BaseUnix {$endif};
+  {$ifdef UNIX}   Unix, unixtype, pthreads, BaseUnix {$endif}
+  ;
 
-{$ifdef Linux}
+{$ifdef UNIX}
 const
  EPERM = 1;
  ENOENT = 2;
@@ -148,7 +149,6 @@ const
 {$endif}
 
 
-
 var
   NSQ_DEBUG: Boolean = false;
 
@@ -221,7 +221,7 @@ type
     {$ifdef Windows}
     FMutex: Cardinal;
     {$endif}
-    {$ifdef Linux}
+    {$ifdef UNIX}
     FMutex: pthread_mutex_t;
     FMutexFile: Longint;
     {$endif}
@@ -267,18 +267,12 @@ implementation
 procedure NSQWrite(const InFormatStr: string; const InArgs: array of Const);
 var MyString: String;
     MyLen: Integer;
-    F: Integer;
 begin
-  {$IFDEF MACOS}
+  {$IFDEF UNIX}
   MyString := Format(InFormatStr, InArgs);
   MyLen := Length(MyString);
   if MyLen > 0 then begin
-    if MyString[MyLen] = char(NSQ_NL) then begin
-      Write(FormatDateTime('dd HH:nn:ss.zzz', Now), ': ', MyString, NSQ_CR);
-    end
-    else begin
-      Writeln(FormatDateTime('dd HH:nn:ss.zzz', Now), ': ', MyString);
-    end;
+    Writeln(FormatDateTime('dd HH:nn:ss.zzz', Now), ': ', MyString, NSQ_CR);
   end
   else begin
     Writeln(FormatDateTime('dd HH:nn:ss.zzz', Now) + ': ');
@@ -302,7 +296,7 @@ constructor TFavMutex.Create(InName: String; InInitialValue: Boolean);
 var MySecurDesc: SECURITY_DESCRIPTOR;
     MyMutexAttributes: TSecurityAttributes;
 {$endif}
-{$ifdef Linux}
+{$ifdef UNIX}
 var MyMutexAttributes: pthread_mutexattr_t;
     MyRV: Longint;
 {$endif}
@@ -328,10 +322,10 @@ begin
     raise Exception.Create(GetError('CREATE', GetLastError));
   end;
   {$endif}
-  {$ifdef Linux}
+  {$ifdef UNIX}
   if InName = '' then begin
     FillChar(MyMutexAttributes, SizeOf(MyMutexAttributes), 0);
-    pthread_mutexattr_settype(@MyMutexAttributes, PTHREAD_MUTEX_RECURSIVE_NP);
+    pthread_mutexattr_settype(@MyMutexAttributes, Longint(PTHREAD_MUTEX_RECURSIVE));
     MyRv := pthread_mutex_init(@FMutex, @MyMutexAttributes);
     if (MyRv <> 0) then begin
       raise Exception.Create(GetError('INIT', MyRV));
@@ -355,7 +349,7 @@ destructor TFavMutex.Destroy;
 {$ifdef Windows}
 var MyRv: LongBool;
 {$endif}
-{$ifdef Linux}
+{$ifdef UNIX}
 var MyRV: Longint;
 {$endif}
 begin
@@ -365,7 +359,7 @@ begin
     raise Exception.Create(GetError('DESTROY', GetLastError));
   end;
   {$endif}
-  {$ifdef Linux}
+  {$ifdef UNIX}
   if _Name = '' then begin;
     MyRv := pthread_mutex_destroy (@FMutex);
     if MyRv <> 0 then begin
@@ -392,7 +386,7 @@ procedure TFavMutex.Release;
 {$ifdef Windows}
 var MyRv: LongBool;
 {$endif}
-{$ifdef Linux}
+{$ifdef UNIX}
 var MyRv: Longint;
 {$endif}
 begin
@@ -402,7 +396,7 @@ begin
     raise Exception.Create(GetError('RELEASE', GetLastError));
   end;
   {$endif}
-  {$ifdef Linux}
+  {$ifdef UNIX}
   if _Name = '' then begin
     MyRv := pthread_mutex_unlock (@FMutex);
 //    _LastThreadID := 0;
@@ -427,7 +421,7 @@ end;
 
 procedure TFavMutex.Wait;
 var MyRv: Longint;
-{$ifdef Linux}
+{$ifdef UNIX}
 {$endif}
 begin
   {$ifdef Windows}
@@ -436,7 +430,7 @@ begin
     raise Exception.Create(GetError('WAIT', MyRv));
   end;
   {$endif}
-  {$ifdef Linux}
+  {$ifdef UNIX}
   if _Name = '' then begin
     MyRv := pthread_mutex_lock (@FMutex);
     if MyRV <> 0 then begin
@@ -462,7 +456,7 @@ var MyResult: String;
 begin
   MyResult := '';
   _LastErroNo:=InError;
-{$ifdef Linux}
+{$ifdef UNIX}
   if InAction = 'INIT' then begin
     if InError = EAGAIN then
       MyResult := 'The system lacked the necessary resources (other than memory) to initialise another mutex'
