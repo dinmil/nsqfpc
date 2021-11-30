@@ -11,18 +11,19 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <CursorPos X="32" Y="9"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="nsqfunctions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NSQFunctions"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="640"/>
-        <CursorPos X="21" Y="663"/>
-        <UsageCount Value="101"/>
+        <TopLine Value="58"/>
+        <CursorPos X="3" Y="65"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -33,7 +34,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="270"/>
         <CursorPos Y="295"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -44,7 +45,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="122"/>
         <CursorPos X="60" Y="130"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="64"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -55,7 +56,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="91"/>
         <CursorPos X="21" Y="108"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -66,18 +67,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="129"/>
         <CursorPos X="56" Y="140"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="nsqversion.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NSQVersion"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <CursorPos X="24" Y="16"/>
-        <UsageCount Value="26"/>
+        <CursorPos X="42" Y="13"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -209,14 +209,6 @@
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="nsqlookup.pas"/>
-        <Caret Line="249" Column="31" TopLine="233"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
-        <Caret Line="94" Column="15" TopLine="85"/>
-      </Position>
-      <Position>
-        <Filename Value="nsqlookup.pas"/>
         <Caret Line="140" Column="31" TopLine="122"/>
       </Position>
       <Position>
@@ -325,6 +317,14 @@
       </Position>
       <Position>
         <Filename Value="nsqreceiver.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqfunctions.pas"/>
+        <Caret Line="505" Column="42" TopLine="494"/>
+      </Position>
+      <Position>
+        <Filename Value="nsqfunctions.pas"/>
+        <Caret Line="52" Column="12" TopLine="29"/>
       </Position>
     </JumpHistory>
     <RunParams>
