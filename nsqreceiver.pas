@@ -110,7 +110,7 @@ begin
       _tcpClient.IOHandler.ReadStream(MyMemoryStream);
       NSQReadStream(MyMemoryStream, MyMessageType, MyMessage);
       if NSQ_DEBUG then begin
-        NSQWrite('THREAD: RecvMsg: %d, %d, "%s"', [MyMemoryStream.Size, MyMessageType, MyMessage]);
+        // NSQWrite('THREAD: RecvMsg: %d, %d, "%s"', [MyMemoryStream.Size, MyMessageType, MyMessage]);
       end;
 
 (*

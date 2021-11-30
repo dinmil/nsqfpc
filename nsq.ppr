@@ -6,6 +6,8 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
+  // heaptrc,
+  // lineinfo,
   Classes,
   SysUtils,
   Crt,
@@ -16,8 +18,20 @@ uses
 
 
 begin
+  if FileExists('.\heaptrc.trc') then begin
+    DeleteFile('.\heaptrc.trc');
+  end;
+
+  (*
+  heaptrc.printfaultyblock := True;
+  heaptrc.printleakedblock := True;
+  heaptrc.quicktrace := True;
+  heaptrc.HaltOnNotReleased := True;
+  heaptrc.SetHeapTraceOutput('.\heaptrc.trc');
+  *)
+
   // TestNSQTopic;
-  TestNSQReceiver;
-  // TestNSQLookup;
+  // TestNSQReceiver;
+  TestNSQLookup;
 end.
 

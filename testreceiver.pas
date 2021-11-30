@@ -19,8 +19,8 @@ implementation
 
 var NSQ_TEST_TOPIC: string = 'igraci';
     NSQ_TEST_CHANNEL: string = 'dinko-test';
-    NSQ_TEST_MESSAGE1: string = 'This is some text: ';
-    NSQ_TEST_MESSAGE2: string = 'Some more';
+    NSQ_TEST_MESSAGE1: string = 'This is some text';
+    NSQ_TEST_MESSAGE2: string = 'Second Message';
 
 
 procedure MyNSQCallback(InTimestampNanosecond: Int64;
@@ -32,7 +32,7 @@ procedure MyNSQCallback(InTimestampNanosecond: Int64;
                          );
 begin
   if NSQ_DEBUG then begin
-    Writeln('MyNSQCallback Received message: ', InBody, NSQ_CR);
+    NSQWrite('MyNSQCallback Received message: %s', [InBody]);
   end;
   OutHowToHandle := nsqCallFIN;
   OutParam := 0;
@@ -61,22 +61,26 @@ var F: Integer;
 begin
   F := 0;
   while true do begin
-    F := F +1;
     if KeyPressed then begin
+      F := F +1;
       MyKey := ReadKey;
+      crt.ClrScr;
+      NSQWrite('Press ctrl-c to finish', []);
+      NSQWrite('Possible options (1-One msg; 2-Many msg, 3-Delay msg, 4-CloseConnection', []);
+      NSQWrite('****************', []);
+      NSQWrite(FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', Now), []);
+
       if (MyKey = ^c) then begin
         if InObject is TNSQReceiverThread then begin
-          Writeln('Received ^c for TNSQReceiverThread');
+          NSQWrite('Received ^c for TNSQReceiverThread', []);
           (InObject as TNSQReceiverThread).Terminate;
         end
         else if InObject is TNSQLookupThread then begin
-        Writeln('Received ^c for TNSQLookupThread');
+        NSQWrite('Received ^c for TNSQLookupThread',[]);
           (InObject as TNSQLookupThread).TerminateThread;
         end;
         break;
       end;
-      Writeln('****************');
-      Writeln(FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', Now));
       if (InTCPClient = nil) OR ((InTCPClient <> nil) and (InTCPClient.Connected = false)) then begin
         // lookup takes some time to connect and find producers
         if InObject is TNSQReceiverThread then begin
@@ -89,32 +93,29 @@ begin
       if InTCPClient <> nil then begin
         if InTCPClient.Connected then begin
           if MyKey = '1' then begin
-            Writeln('1. Publish one message');
+            NSQWrite('1. Publish one message', []);
             NSQWritePUBMessage(InTCPClient, NSQ_TEST_TOPIC, NSQ_TEST_MESSAGE1 + IntToStr(F));
           end
           else if MyKey = '2' then begin
-            Writeln('2. Publish many messages');
-            NSQWriteMPUBMessage(InTCPClient, NSQ_TEST_TOPIC, [NSQ_TEST_MESSAGE1 + IntToStr(F), NSQ_TEST_MESSAGE2]);
+            NSQWrite('2. Publish many messages', []);
+            NSQWriteMPUBMessage(InTCPClient, NSQ_TEST_TOPIC, [NSQ_TEST_MESSAGE1 + IntToStr(F), NSQ_TEST_MESSAGE2 + IntToStr(F)]);
           end
           else if MyKey = '3' then begin
-            Writeln('3. Publish message with delay');
+            NSQWrite('3. Publish message with delay', []);
             NSQWriteDPUBMessage(InTCPClient, NSQ_TEST_TOPIC, 10000, NSQ_TEST_MESSAGE1 + IntToStr(F));
           end
           else if MyKey = '4' then begin
-            Writeln('4. Close connection to queue nicely');
+            NSQWrite('4. Close connection to queue nicely', []);
             NSQWriteCLSMessage(InTCPClient);
             InTCPClient := nil;
           end;
-          Writeln('Press ctrl-c to finish');
-          Writeln('Possible options (1-One msg; 2-Many msg, 3-Delay msg, 4-CloseConnection');
-          Writeln('****************');
         end
         else begin
-          Writeln('Client is not connected ', NSQ_CR)
+          NSQWrite('Client is not connected ', [])
         end;
       end
       else begin
-          Writeln('Client is nil ', NSQ_CR)
+        NSQWrite('Client is nil ', [])
       end;
     end
   end;
@@ -132,8 +133,8 @@ begin
   SendSomething(Reader._tcpClient, Reader);
 
   FreeAndNil(Reader);
-  Writeln('');
-  Writeln('Finished');
+  NSQWrite('', []);
+  NSQWrite('Finished', []);
 end;
 
 
@@ -143,14 +144,16 @@ begin
   // Create reader
   NSQ_DEBUG := true;
 
-  Lookup := TNSQLookupThread.Create('http://localhost:4161', NSQ_TEST_TOPIC, NSQ_TEST_CHANNEL, 10);
+  Lookup := TNSQLookupThread.Create(NSQ_LOOKUP_URL, NSQ_TEST_TOPIC, NSQ_TEST_CHANNEL, 10);
   Lookup.InstallDataCallback(@MyNSQCallback);
   Lookup.Start;
 
   SendSomething(Lookup._nsqTopic.GetTcpClient, Lookup);
 
-  Writeln('');
-  Writeln('Finished');
+  FreeAndNil(Lookup);
+
+  NSQWrite('',[]);
+  NSQWrite('Finished', []);
 end;
 
 end.

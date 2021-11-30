@@ -189,7 +189,7 @@ begin
       if MyTopic <> nil then FreeAndNil(MyTopic);
       // do not raise exception because this is called from thread
       if NSQ_DEBUG then begin
-        Writeln('CheckTopicData Error: ', E.Message, NSQ_CR);
+        NSQWrite('CheckTopicData Error: %s', [E.Message]);
       end;
     end;
   end;
@@ -257,7 +257,7 @@ begin
   end;
   MyResponse := NSQGetTopicData(InNSQLookupUrl, InTopicName);
   if NSQ_DEBUG then begin
-    Writeln(MyResponse, NSQ_CR)
+    NSQWrite(MyResponse, [])
   end;
   ParseJSONResponse(MyResponse);
   _nsqLookupUrl := InNSQLookupUrl;
@@ -535,15 +535,14 @@ begin
           MyItem := MyJSONArray.Items[F];
           for G := 0 to MyItem.Count-1 do begin
             MyItem1 := MyItem.Items[G];
-            MyJSONObject := TJSONObject(MyItem1);
             MyObjectName := TJSONObject(MyItem).Names[G];
-            if MyJSONObject.IsNull = false then begin
-              if MyObjectName = 'remote_address' then MyData.remote_address := MyJSONObject.AsString
-              else if MyObjectName = 'hostname' then MyData.hostname := MyJSONObject.AsString
-              else if MyObjectName = 'broadcast_address' then MyData.broadcast_address := MyJSONObject.AsString
-              else if MyObjectName = 'tcp_port' then MyData.tcp_port := MyJSONObject.AsInt64
-              else if MyObjectName = 'http_port' then MyData.http_port := MyJSONObject.AsInt64
-              else if MyObjectName = 'version' then MyData.version := MyJSONObject.AsString
+            if MyItem1.IsNull = false then begin
+              if MyObjectName = 'remote_address' then MyData.remote_address := MyItem1.AsString
+              else if MyObjectName = 'hostname' then MyData.hostname := MyItem1.AsString
+              else if MyObjectName = 'broadcast_address' then MyData.broadcast_address := MyItem1.AsString
+              else if MyObjectName = 'tcp_port' then MyData.tcp_port := MyItem1.AsInt64
+              else if MyObjectName = 'http_port' then MyData.http_port := MyItem1.AsInt64
+              else if MyObjectName = 'version' then MyData.version := MyItem1.AsString
             end;
           end;
           AddItem(MyData);
