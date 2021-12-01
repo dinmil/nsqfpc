@@ -15,12 +15,12 @@ It is adjusted for Windows too.
 Client library tries to follow directions from https://nsq.io/clients/building_client_libraries.html
 
 ## About NSQ
-It is simple, 
-It is fast, 
-It is written in GO language, 
-It is easy for setup (no need to setup at all), 
-It suppport all OS-es
-It....
+- It is simple, 
+- It is fast, 
+- It is written in GO language, 
+- It is easy for setup (no need to setup at all), 
+- It suppport all OS-es
+- It....
 
 ## NSQ Installation
 Follow directions from https://nsq.io/deployment/installing.html
